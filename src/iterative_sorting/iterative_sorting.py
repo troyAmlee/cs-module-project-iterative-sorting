@@ -80,8 +80,49 @@ buckets.
 
 What is the time and space complexity of the counting sort algorithm?
 '''
+arraycount = [2, 1, 1, 0, 2, 5, 4, 0, 2, 8, 7, 7, 9, 2, 0, 1, 9]
+
 def counting_sort(arr, maximum=None):
     # Your code here
+    if(len(arr) == 0):
+        return arr
+    elif(maximum == None):
+        maximum = max(arr)
+    for z in arr:
+        if(z < 0):
+            return 'Error, negative numbers not allowed in Count Sort'      
+    # instantiate 2 arrays
+    b = [0 for i in range(0, len(arr))] # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    count = [0 for i in range(0, maximum + 1)] # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    # arr = [2, 1, 1, 0, 2, 5, 4, 0, 2, 8, 7, 7, 9, 2, 0, 1, 9]
+    for i in range(len(arr)):
+        count[arr[i]] = count[arr[i]] + 1
+    print(f"count sort counted values: {count}")
+
+    # count = [3, 3, 4, 0, 1, 1, 0, 2, 1, 2]
+
+    # loop through count:
+    for k in range(len(count)):
+        if k == 0:
+            pass
+        else:
+            count[k] = count[k] + count[k - 1]
+    print(f"count sort counted values after arithmetic: {count}")
+
+    # count = [3, 6, 10, 10, 11, 12, 12, 14, 15, 17]
 
 
-    return arr
+    for d, e in reversed(list(enumerate(arr))):
+        count[arr[d]] = count[arr[d]] - 1
+        b[count[arr[d]]] = e
+        
+    print(f"the b array: {b}")
+        # b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        
+
+    # b = [sorted stuff]
+
+    return b
+
+counting_sort(arraycount)
